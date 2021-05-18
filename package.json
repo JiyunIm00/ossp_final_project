@@ -1,6 +1,6 @@
 {
     "name": "ossp_final_project",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "",
     "main": "main.js",
     "scripts": {
@@ -15,5 +15,9 @@
     "bugs": {
         "url": "https://github.com/JiyunIm00/ossp_final_project/issues"
     },
-    "homepage": "https://github.com/JiyunIm00/ossp_final_project#readme"
+    "homepage": "https://github.com/JiyunIm00/ossp_final_project#readme",
+    "dependencies": {
+        "navigator": "^1.0.1",
+        "node-html-parser": "^3.3.0"
+    }
 }
