@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <title>skku map practice</title>
+        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=78impuwxr0"></script>
+
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,13 +30,268 @@
                     <div class="d-inline-flex p-2 bd-highlight">
                         <h3 style = "background-color: #6edf6eb9">인사캠</h3>
                     </div>
-                    <img/>
+                    
+                    <div id="map1" style="width:400px;height:400px;"></div>
+                    <script>
+                        var mapOptions = {
+                            center: new naver.maps.LatLng(37.5875515293465, 126.99326325081786),
+                            zoom: 16
+                        };
+                
+                        var map1 = new naver.maps.Map('map1', mapOptions);
+                
+                        var marker1 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.587553261331415, 126.99452495090915),
+                            map: map1
+                        });
+                        var marker2 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58736849120635, 126.9906234845225),
+                            map: map1
+                        });
+                        var marker4 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58864979264062, 126.9931239356516),
+                            map: map1
+                        });
+                        var marker5 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58848672013139, 126.99193859735817),
+                            map: map1
+                        });
+                        var marker7 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58845858419305, 126.99417986957981),
+                            map: map1
+                        });
+                        var marker8 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58751957778467, 126.99331315067182),
+                            map: map1
+                        });
+                        var marker9 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.586846278131034, 126.99512615613428),
+                            map: map1
+                        });
+                        var marker17 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58980928393619, 126.993241635981),
+                            map: map1
+                        });
+                        var marker31 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.589062529160216, 126.99157870768938),
+                            map: map1
+                        });
+                        var marker32 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.589039970447324, 126.99218841065118),
+                            map: map1
+                        });
+                        var marker33 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.588548254194976, 126.99269125302078),
+                            map: map1
+                        });
+                        var marker61 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.587830780152174, 126.99077828392309),
+                            map: map1
+                        });
+                        var marker62 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58812748077748, 126.99098591935544),
+                            map: map1
+                        });
+                        var markerK = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58776581894057, 126.9952576872889),
+                            map: map1
+                        });
+                        var markerI = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.585881037605176, 126.99424078822312),
+                            map: map1
+                        });
+                        var markerG = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.58791001939745, 126.99299405479495),
+                            map: map1
+                        });
+                    </script>
+
                 </div>
                 <div class="flex-grow-1 bg-light rounded-2 p-2 w-50">
                     <div class="d-inline-flex p-2 bd-highlight">
                         <h3 style = "background-color: #6edf6eb9">자과캠</h3>
                     </div>
-                    <img/>
+                    
+                    <div id="map2" style="width:400px;height:400px;"></div>
+                    <script>
+                        var mapOptions = {
+                            center: new naver.maps.LatLng(37.294001573207794, 126.97466660855437),
+                            zoom: 16
+                        };
+                
+                        var map2 = new naver.maps.Map('map2', mapOptions);
+                
+                        var marker3 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.293993391992025, 126.97357585530635),
+                            map: map2
+                        });
+                        var marker4 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29399104658904, 126.9725387543493),
+                            map: map2
+                        });
+                        var marker5 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29320185217941, 126.97198618068263),
+                            map: map2
+                        });
+                        var marker11 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29363106421013, 126.97858225709355),
+                            map: map2
+                        });
+                        var marker12 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.290983722535245, 126.97526116095953),
+                            map: map2
+                        });
+                        var marker16 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29494332904548, 126.9782669655373),
+                            map: map2
+                        });
+                        var marker20 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.294205041161376, 126.97807921090859),
+                            map: map2
+                        });
+                        var marker21 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29362038029, 126.976448427834),
+                            map: map2
+                        });
+                        var marker22 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29384656349899, 126.97710825124348),
+                            map: map2
+                        });
+                        var marker23 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.294298927876824, 126.97667909780641),
+                            map: map2
+                        });
+                        var marker24 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29328750565124, 126.97781635441459),
+                            map: map2
+                        });
+                        var marker25 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29475982463392, 126.97671664873218),
+                            map: map2
+                        });
+                        var marker26 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29499880702589, 126.97745157399308),
+                            map: map2
+                        });
+                        var marker27 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29547250202733, 126.97700632730225),
+                            map: map2
+                        });
+                        var marker28 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.294452560447034, 126.9782562366876),
+                            map: map2
+                        });
+                        var marker30 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29334298486408, 126.97695268312259),
+                            map: map2
+                        });
+                        var marker31 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.294499503673684, 126.9751931540079),
+                            map: map2
+                        });
+                        var marker32 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29496466673989, 126.97495175519954),
+                            map: map2
+                        });
+                        var marker33 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29153775573484, 126.97682930149837),
+                            map: map2
+                        });
+                        var marker40 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.291648716692144, 126.97771443046226),
+                            map: map2
+                        });
+                        var marker48 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.293923380267664, 126.9748820177734),
+                            map: map2
+                        });
+                        var marker49 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29465313583996, 126.97206033387081),
+                            map: map2
+                        });
+                        var marker51 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29537861678552, 126.97437239804557),
+                            map: map2
+                        });
+                        var marker53 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29191331523712, 126.97666836896899),
+                            map: map2
+                        });
+                        var marker61 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29589498427068, 126.97399152436994),
+                            map: map2
+                        });
+                        var marker62 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29609128832887, 126.97450114407641),
+                            map: map2
+                        });
+                        var marker64 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29510549537773, 126.97811676181513),
+                            map: map2
+                        });
+                        var marker70 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29233154975799, 126.97238219896532),
+                            map: map2
+                        });
+                        var marker71 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29217364516423, 126.97342289605015),
+                            map: map2
+                        });
+                        var marker72 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.292365691246445, 126.9706226698589),
+                            map: map2
+                        });
+                        var marker81 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.292267534417796, 126.97836888946405),
+                            map: map2
+                        });
+                        var marker83 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.2931637441636, 126.97842253364371),
+                            map: map2
+                        });
+                        var marker84 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29145240104462, 126.97638405481774),
+                            map: map2
+                        });
+                        var marker85 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29593339161983, 126.9757725111496),
+                            map: map2
+                        });
+                        var marker86 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.292032811036016, 126.97564912953719),
+                            map: map2
+                        });
+                        var marker89 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.294550714424844, 126.97185112157464),
+                            map: map2
+                        });
+                        var marker91 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29689783659106, 126.97386814275583),
+                            map: map2
+                        });
+                        var marker92 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.296923441155926, 126.97458161034491),
+                            map: map2
+                        });
+                        var marker93 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29653083687054, 126.97559012092198),
+                            map: map2
+                        });
+                        var marker95 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.296360138711805, 126.97762859977861),
+                            map: map2
+                        });
+                        var marker96 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29579256456275, 126.97777343906363),
+                            map: map2
+                        });
+                        var marker98 = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(37.29623638231038, 126.9728542677458),
+                            map: map2
+                        });
+                
+                    </script>
+
                 </div>
             </div>
             <div class="dflex">
