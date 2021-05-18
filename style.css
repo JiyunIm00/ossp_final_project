@@ -1,0 +1,21 @@
+body {
+    background:#eeeeee;
+    font-family:  Arial, "Noto Sans KR";
+}
+img {
+    margin-left: 6.5px;
+    width: 320px;
+    height: 320px
+}
+
+#wrapper {
+    width: 850px;
+    background: white;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.1);
+}
