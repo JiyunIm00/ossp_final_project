@@ -175,8 +175,33 @@
                     </script>
 
                 </div>
+
+                
             </div>
             <div class="dflex">
+                <div class="d-flex align-items-center mb-2 mt-2">
+                    <input type="text" class="form-control" id="task-input" placeholder="Enter a task here">
+                    <button type="button" id="add" class="btn btn-primary ms-1 text-nowrap">Search</button>
+                    <script>
+                        let input = document.querySelector("#task-input");
+                        let number;
+                        input.addEventListener("keyup", event => {
+                            if(event.keyCode == 13){
+                                // Read the text in #task-input.
+                                number = input.value;
+
+                                if (!number.length) return;
+
+                                if (parseInt(number) === NaN) return;   // or maybe make a pop up message.
+
+                                // Bring info and make a containder to display
+
+                                // Clear #task-input.
+                                input.value = "";
+                                }
+                        });
+                    </script>
+                </div>
                 <a></a>
             </div>
         </div>
