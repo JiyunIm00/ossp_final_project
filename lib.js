@@ -56,7 +56,7 @@ async function makeSynchronousRequest_LastUrl(request) {
 }
 
 // target 사람의 url을 반환하는 함수
-function getPromise_FindPersonUrl(url, num) {
+function getPromise_FindPersonUrl(url, targetNum) {
     return new Promise((resolve, reject) => {
         https.get(
             url,
@@ -78,19 +78,44 @@ function getPromise_FindPersonUrl(url, num) {
                     root.querySelectorAll(
                         "dt.board-list-content-title"
                     ).forEach((d) => {
-                        if (d.innerText.indexOf(String(num)) != -1) {
-                            let splitedUrl = d.childNodes[1].rawAttrs
-                                .split('"')[1]
-                                .replace(/amp/g, "article")
-                                .replace(/;article/g, "");
-                            resolve(defaulturl + splitedUrl);
+                        let splitedStr = d.innerText
+                            .trim()
+                            .replace(/(\r\n\t|\n|\r\t)/gm, "")
+                            .split("~");
+
+                        if (splitedStr.length == 1) {
+                            if (d.innerText.indexOf(String(targetNum)) != -1) {
+                                let splitedUrl = d.childNodes[1].rawAttrs
+                                    .split('"')[1]
+                                    .replace(/amp/g, "article")
+                                    .replace(/;article/g, "");
+                                resolve(defaulturl + splitedUrl);
+                            }
+                        } else {
+                            let num1 = parseInt(
+                                splitedStr[0].substring(
+                                    splitedStr[0].indexOf(" ") + 1,
+                                    splitedStr[0].length
+                                )
+                            );
+                            let num2 = parseInt(
+                                splitedStr[1].substring(
+                                    0,
+                                    splitedStr[1].indexOf("번")
+                                )
+                            );
+                            //console.log(num1 + " " + num2);
+                            for (let num = num1; num <= num2; num++) {
+                                if (num == targetNum) {
+                                    let splitedUrl = d.childNodes[1].rawAttrs
+                                        .split('"')[1]
+                                        .replace(/amp/g, "article")
+                                        .replace(/;article/g, "");
+                                    resolve(defaulturl + splitedUrl);
+                                }
+                            }
                         }
-                        //?mode=view&amp;articleNo=115397&amp;article.offset=0&amp;articleLimit=10"
-                        //?mode=view&articleNo=115397&article.offset=0&articleLimit=10
-                        //?mode=view&articleNo=115397&article.offset=0&articleLimit=10
-                        ret += d.innerText.trim() + "\n";
                     });
-                    //console.log(ret);
                     resolve(-1);
                 });
                 res.on("error", (error) => {
@@ -171,7 +196,7 @@ const findPersonv = async function (num) {
     let i = 0;
     let curUrl = basicUrl + "=" + i;
     let last_url = await makeSynchronousRequest_LastUrl();
-    console.log(curUrl);
+    // console.log(curUrl);
     let targeturl = await makeSynchronousRequest_FindPersonUrl(curUrl, num);
     if (targeturl != -1) {
         let path = await makeSynchronousRequest_FindPath(targeturl);
@@ -190,6 +215,7 @@ const findPersonv = async function (num) {
         }
     }
 };
-findPersonv(57);
+
+findPersonv(66);
 
 module.exports = { findPersonv };
