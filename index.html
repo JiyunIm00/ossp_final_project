@@ -40,70 +40,49 @@
                 
                         var map1 = new naver.maps.Map('map1', mapOptions);
                 
-                        var marker1 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.587553261331415, 126.99452495090915),
-                            map: map1
-                        });
-                        var marker2 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58736849120635, 126.9906234845225),
-                            map: map1
-                        });
-                        var marker4 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58864979264062, 126.9931239356516),
-                            map: map1
-                        });
-                        var marker5 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58848672013139, 126.99193859735817),
-                            map: map1
-                        });
-                        var marker7 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58845858419305, 126.99417986957981),
-                            map: map1
-                        });
-                        var marker8 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58751957778467, 126.99331315067182),
-                            map: map1
-                        });
-                        var marker9 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.586846278131034, 126.99512615613428),
-                            map: map1
-                        });
-                        var marker17 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58980928393619, 126.993241635981),
-                            map: map1
-                        });
-                        var marker31 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.589062529160216, 126.99157870768938),
-                            map: map1
-                        });
-                        var marker32 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.589039970447324, 126.99218841065118),
-                            map: map1
-                        });
-                        var marker33 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.588548254194976, 126.99269125302078),
-                            map: map1
-                        });
-                        var marker61 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.587830780152174, 126.99077828392309),
-                            map: map1
-                        });
-                        var marker62 = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58812748077748, 126.99098591935544),
-                            map: map1
-                        });
-                        var markerK = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58776581894057, 126.9952576872889),
-                            map: map1
-                        });
-                        var markerI = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.585881037605176, 126.99424078822312),
-                            map: map1
-                        });
-                        var markerG = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(37.58791001939745, 126.99299405479495),
-                            map: map1
-                        });
+                        var marker_pos = {
+            "1번 600주년기념관":[37.587553261331415, 126.99452495090915],
+            "2번 법학관":[37.58736849120635, 126.9906234845225],
+            "4번 교수회관":[37.58864979264062, 126.9931239356516],
+            "5번 호암관":[37.58848672013139, 126.99193859735817],
+            "7번 중앙학술정보관":[37.58845858419305, 126.99417986957981],
+            "8번 학생회관":[37.58751957778467, 126.99331315067182],
+            "9번 국제관":[37.586846278131034, 126.99512615613428],
+            "17번 양현관":[37.58980928393619, 126.993241635981],
+            "31번 퇴계인문관":[37.589062529160216, 126.99157870768938],
+            "32번 다산경제관":[37.589039970447324, 126.99218841065118],
+            "33번 경영관":[37.588548254194976, 126.99269125302078],
+            "61번 수선관":[37.587830780152174, 126.99077828392309],
+            "62번 수선관(별관)":[37.58812748077748, 126.99098591935544],
+            "킹고(K)하우스":[37.58776581894057, 126.9952576872889],
+            "인터네셔널(I)하우스":[37.585881037605176, 126.99424078822312],
+            "금잔디광장":[37.58794097893494, 126.99297398936812],
+            "대운동장":[37.587477448335264, 126.99165783991585]
+        };
+        
+        var markers = [];
+
+        for (var key in marker_pos) {
+
+            var position = new naver.maps.LatLng(
+                marker_pos[key][0], marker_pos[key][1]);
+
+            var marker = new naver.maps.Marker({
+                map: map1,
+                position: position,
+                title: key,
+            });
+
+            marker.addListener('mouseover', function(e) {
+                highlightMarker(e.overlay);
+            });
+            marker.addListener('mouseout', function(e) {
+                unhighlightMarker(e.overlay);
+            });
+
+            markers.push(marker);
+
+        };
                     </script>
 
                 </div>
