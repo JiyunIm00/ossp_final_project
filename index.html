@@ -180,23 +180,23 @@
             </div>
             <div class="dflex">
                 <div class="d-flex align-items-center mb-2 mt-2">
-                    <input type="text" class="form-control" id="task-input" placeholder="확진자 번호를 입력하세요.">
+                    <input type="text" class="form-control" id="number-input" placeholder="확진자 번호를 입력하세요.">
                     <button type="button" id="add" class="btn btn-primary ms-1 text-nowrap">Search</button>
                     <script>
-                        let input = document.querySelector("#task-input");
+                        let input = document.querySelector("#number-input");
                         let number;
                         input.addEventListener("keyup", event => {
                             if(event.keyCode == 13){
-                                // Read the text in #task-input.
+                                // Read the text in #number-input.
                                 number = input.value;
 
                                 if (!number.length) return;
 
-                                if (parseInt(number) === NaN) return;   // or maybe make a pop up message.
+                                if (parseInt(number) === NaN) return;   // or maybe make a pop-up message.
 
-                                // Bring info and make a containder to display
+                                // Bring info and make a container to display
 
-                                // Clear #task-input.
+                                // Clear #number-input.
                                 input.value = "";
                                 }
                         });
