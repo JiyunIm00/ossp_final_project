@@ -5,14 +5,6 @@ const navigator = require("navigator");
 const userAgent = navigator.userAgent;
 const defaulturl = "https://skb.skku.edu/haksaeng/status.do";
 
-var person = {
-    url: "",
-    confirmed_Num: 0,
-    totalNum_In_OnePage: 0,
-    Num_In_Page: 0,
-    campus: "",
-};
-
 // async 구현은 <https://usefulangle.com/post/170/nodejs-synchronous-http-request>를 참고 하였습니다.
 
 // 마지막 페이지의 url을 반환하는 함수.
