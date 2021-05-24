@@ -453,7 +453,7 @@ const findTargetSequence = async function(num) {
         targetSequence = await makeSynchronousRequest_FindTargetSequence(curUrl, num);
         if(targetSequence !== -1) {
             //이 부분을 return으로 대체
-            // eturn targetSequence;
+            // return targetSequence;
             console.log(targetSequence);
         }
     }
@@ -462,8 +462,7 @@ const findTargetSequence = async function(num) {
 
 findPersonv(69);
 findTotalNumInPost(69);
-findTargetSequence(69).then()
-console.log(targetSequence);
+findTargetSequence(69);
 module.exports = { findPersonv , findTotalNumInPost, findTargetSequence};
 
 // main function for debugging
