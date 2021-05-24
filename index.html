@@ -50,6 +50,11 @@
                     <input type="text" class="form-control" id="number-input" placeholder="확진자 번호를 입력하세요.">
                     <button type="button" id="add" class="btn btn-primary ms-1 text-nowrap">Search</button>
                     <script>
+
+                        // sample input array of visited places
+                        let sample_visited_1 = [ '중앙학술정보관', '경영관' ];
+                        let sample_visited_2 = [ '제1공학관 22', '제1공학관 23', '제2공학관 26', '기초학문관 51', '생명공학관 61' ];
+
                         // 인사캠 지도
                         var mapOptions1 = {
                             center: new naver.maps.LatLng(37.5875515293465, 126.99326325081786),
@@ -80,29 +85,7 @@
                         };
                         
                         var markers1 = [];
-
-                        for (var key in marker_pos1) {
-
-                            var position = new naver.maps.LatLng(
-                                marker_pos1[key][0], marker_pos1[key][1]);
-
-                            var marker = new naver.maps.Marker({
-                                map: map1,
-                                position: position,
-                                title: key,
-                            });
-
-                            marker.addListener('mouseover', function(e) {
-                                highlightMarker(e.overlay);
-                            });
-                            marker.addListener('mouseout', function(e) {
-                                unhighlightMarker(e.overlay);
-                            });
-
-                            markers1.push(marker);
-
-                        };
-
+                        
                         // 자과캠 지도
                         var mapOptions2 = {
                             center: new naver.maps.LatLng(37.294001573207794, 126.97466660855437),
@@ -134,7 +117,7 @@
                             "반도체관":[37.291648716692144, 126.97771443046226],
                             "삼성학술정보관":[37.293923380267664, 126.9748820177734],
                             "운용재":[37.29465313583996, 126.97206033387081],
-                            "기초학문관":[37.29537861678552, 126.97437239804557],
+                            "기초학문관 51":[37.29537861678552, 126.97437239804557],
                             "약학관":[37.29191331523712, 126.97666836896899],
                             "생명공학관 61":[37.29589498427068, 126.97399152436994],
                             "생명공학관 62":[37.29609128832887, 126.97450114407641],
@@ -158,27 +141,43 @@
 
                         var markers2 = [];
 
-                        for (var key in marker_pos2) {
 
-                            var position = new naver.maps.LatLng(
-                                marker_pos2[key][0], marker_pos2[key][1]);
+                        // 경로 표시
+                        function mark_path(visited){
+                            var markers = [];
+                            for (var key in marker_pos1) {
+                                if(visited.includes(key)){
+                                    var position = new naver.maps.LatLng(
+                                        marker_pos1[key][0], marker_pos1[key][1]);
 
-                            var marker = new naver.maps.Marker({
-                                map: map2,
-                                position: position,
-                                title: key,
-                            });
+                                    var marker = new naver.maps.Marker({
+                                        map: map1,
+                                        position: position,
+                                        title: key,
+                                    });
 
-                            marker.addListener('mouseover', function(e) {
-                                highlightMarker(e.overlay);
-                            });
-                            marker.addListener('mouseout', function(e) {
-                                unhighlightMarker(e.overlay);
-                            });
+                                    markers.push(marker);
+                                }
+                            }
+                            for (var key in marker_pos2) {
+                                if(visited.includes(key)){
+                                    var position = new naver.maps.LatLng(
+                                        marker_pos2[key][0], marker_pos2[key][1]);
 
-                            markers2.push(marker);
+                                    var marker = new naver.maps.Marker({
+                                        map: map2,
+                                        position: position,
+                                        title: key,
+                                    });
 
-                        };
+                                    markers.push(marker);
+                                }
+                            }
+                            
+                        }
+                        // 경로 표시 샘플
+                        mark_path(sample_visited_1);
+                        mark_path(sample_visited_2);
 
 
                         // 입력창 관련
