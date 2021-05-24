@@ -18,6 +18,6 @@
     "homepage": "https://github.com/JiyunIm00/ossp_final_project#readme",
     "dependencies": {
         "navigator": "^1.0.1",
-        "node-html-parser": "^3.3.0"
+        "node-html-parser": "^3.3.3"
     }
 }
