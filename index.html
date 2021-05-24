@@ -32,15 +32,33 @@
                     </div>
                     
                     <div id="map1" style="width:400px;height:400px;"></div>
+
+                </div>
+                <div class="flex-grow-1 bg-light rounded-2 p-2 w-50">
+                    <div class="d-inline-flex p-2 bd-highlight">
+                        <h3 style = "background-color: #6edf6eb9">자과캠</h3>
+                    </div>
+                    
+                    <div id="map2" style="width:400px;height:400px;"></div>
+
+                </div>
+
+                
+            </div>
+            <div class="dflex">
+                <div class="d-flex align-items-center mb-2 mt-2">
+                    <input type="text" class="form-control" id="number-input" placeholder="확진자 번호를 입력하세요.">
+                    <button type="button" id="add" class="btn btn-primary ms-1 text-nowrap">Search</button>
                     <script>
-                        var mapOptions = {
+                        // 인사캠 지도
+                        var mapOptions1 = {
                             center: new naver.maps.LatLng(37.5875515293465, 126.99326325081786),
                             zoom: 16
                         };
                 
-                        var map1 = new naver.maps.Map('map1', mapOptions);
+                        var map1 = new naver.maps.Map('map1', mapOptions1);
                 
-                        var marker_pos = {
+                        var marker_pos1 = {
 
                             "1번 600주년기념관":[37.587553261331415, 126.99452495090915],
                             "2번 법학관":[37.58736849120635, 126.9906234845225],
@@ -61,12 +79,12 @@
                             "대운동장":[37.587477448335264, 126.99165783991585]
                         };
                         
-                        var markers = [];
+                        var markers1 = [];
 
-                        for (var key in marker_pos) {
+                        for (var key in marker_pos1) {
 
                             var position = new naver.maps.LatLng(
-                                marker_pos[key][0], marker_pos[key][1]);
+                                marker_pos1[key][0], marker_pos1[key][1]);
 
                             var marker = new naver.maps.Marker({
                                 map: map1,
@@ -81,28 +99,19 @@
                                 unhighlightMarker(e.overlay);
                             });
 
-                            markers.push(marker);
+                            markers1.push(marker);
 
                         };
 
-                    </script>
-
-                </div>
-                <div class="flex-grow-1 bg-light rounded-2 p-2 w-50">
-                    <div class="d-inline-flex p-2 bd-highlight">
-                        <h3 style = "background-color: #6edf6eb9">자과캠</h3>
-                    </div>
-                    
-                    <div id="map2" style="width:400px;height:400px;"></div>
-                    <script>
-                        var mapOptions = {
+                        // 자과캠 지도
+                        var mapOptions2 = {
                             center: new naver.maps.LatLng(37.294001573207794, 126.97466660855437),
                             zoom: 16
                         };
                 
-                        var map2 = new naver.maps.Map('map2', mapOptions);
+                        var map2 = new naver.maps.Map('map2', mapOptions2);
                 
-                        var marker_pos = {
+                        var marker_pos2 = {
                             "3번 학생회관":[37.293993391992025, 126.97357585530635],
                             "4번 복지회관":[37.29399104658904, 126.9725387543493],
                             "5번 수성관":[37.29320185217941, 126.97198618068263],
@@ -147,12 +156,12 @@
                             "기숙사신관":[37.29623638231038, 126.9728542677458]
                         };
 
-                        var markers = [];
+                        var markers2 = [];
 
-                        for (var key in marker_pos) {
+                        for (var key in marker_pos2) {
 
                             var position = new naver.maps.LatLng(
-                                marker_pos[key][0], marker_pos[key][1]);
+                                marker_pos2[key][0], marker_pos2[key][1]);
 
                             var marker = new naver.maps.Marker({
                                 map: map2,
@@ -167,22 +176,12 @@
                                 unhighlightMarker(e.overlay);
                             });
 
-                            markers.push(marker);
+                            markers2.push(marker);
 
                         };
 
-                
-                    </script>
 
-                </div>
-
-                
-            </div>
-            <div class="dflex">
-                <div class="d-flex align-items-center mb-2 mt-2">
-                    <input type="text" class="form-control" id="number-input" placeholder="확진자 번호를 입력하세요.">
-                    <button type="button" id="add" class="btn btn-primary ms-1 text-nowrap">Search</button>
-                    <script>
+                        // 입력창 관련
                         let input = document.querySelector("#number-input");
                         let number;
                         input.addEventListener("keyup", event => {
