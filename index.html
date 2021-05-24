@@ -186,18 +186,15 @@
                         let number;
                         searchButton.addEventListener("click", event => {
                             
-                                // Read the text in #number-input.
+                               // Read the text in #number-input.
                                 let input = document.querySelector("#number-input");
-                                if(!input.length)
-                                    return;
-                                else if (isNaN(input)) { 
+                                
+                                if (isNaN(input)) {  
                                     window.alert("잘못된 형식의 입력입니다. 숫자를 입력하세요.");
-                                    return;
-                                }
-                                else {
-                                    number = input.value;
                                 }
 
+                                number = input.value;
+                               
                                 // Bring info and make a container to display
 
                                 // Clear #number-input.
