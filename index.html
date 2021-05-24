@@ -191,8 +191,10 @@
 
                                 if (!number.length) return;
 
-                                if (parseInt(number) === NaN) return;   // or maybe make a pop-up message.
-
+                                if (parseInt(number) === NaN) {   // or maybe make a pop-up message.
+                                    alert("잘못된 형식의 입력입니다. 숫자를 입력하세요."); 
+                                    return;
+                                }
                                 // Bring info and make a container to display
 
                                 // Clear #number-input.
