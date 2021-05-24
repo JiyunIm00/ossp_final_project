@@ -293,6 +293,7 @@ async function getPromise_FindPerson(num) {
             Num_In_Page: 0,
             campus: "",
             datas: [],
+            splitedData: "",
             path: [],
         };
         // wait to http request to finish
@@ -320,6 +321,7 @@ async function getPromise_FindPerson(num) {
                 person.datas
             );
             person.campus = tmp.campus;
+            person.splitedData = tmp.splitedData;
             person.path = tmp.path;
             resolve(person);
         }
@@ -348,6 +350,7 @@ async function getPromise_FindPerson(num) {
                     person.datas
                 );
                 person.campus = tmp.campus;
+                person.splitedData = tmp.splitedData;
                 person.path = tmp.path;
 
                 resolve(person);
@@ -374,13 +377,14 @@ async function makeSynchronousRequest_FindPerson(num, request) {
 
 // main function for debugging
 async function main() {
-    let txt = [];
-    for (let i = 53; i <= 75; i++) {
+    let txt = []; //53 55 issue
+    for (let i = 56; i <= 76; i++) {
         txt.push(await makeSynchronousRequest_FindPerson(i));
+        console.log(i);
         //console.log(await makeSynchronousRequest_FindPerson(i));
     }
     console.log(txt);
-    //await makeSynchronousRequest_FindPerson(52);
+    //console.log(await makeSynchronousRequest_FindPerson(53));
 }
 
 main();
@@ -391,6 +395,7 @@ function personInfo(num, total, order, crudeInfo) {
     // 0-확진자 번호, 1-인사0/자과1, 2-날짜, 3-동선, 4-다녀간 장소 배열
     var person = {
         campus: "",
+        splitedData: "",
         path: [],
     };
     let info = [num, 0, 0, 0, []];
@@ -416,6 +421,7 @@ function personInfo(num, total, order, crudeInfo) {
             info[3] = "교내 동선은 없습니다.";
             //console.log(info);
             person.campus = info[1];
+            person.splitedData = info[3];
             person.path = info[4];
             return person;
         }
@@ -424,16 +430,18 @@ function personInfo(num, total, order, crudeInfo) {
     // 동선 있는 경우
     if (total === 1) {
         let data = "";
-        for(let i = 0; i < n; i++){
-            if(crudeInfo[i].indexOf("교내 동선") !== -1 || crudeInfo[i].indexOf("확진학생의 적극적인 협조") !== -1){
-                i++
-                while(crudeInfo[i].indexOf("의심증상 상담") === -1){
+        for (let i = 0; i < n; i++) {
+            if (
+                crudeInfo[i].indexOf("교내 동선") !== -1 ||
+                crudeInfo[i].indexOf("확진학생의 적극적인 협조") !== -1
+            ) {
+                i++;
+                while (crudeInfo[i].indexOf("의심증상 상담") === -1) {
                     data += crudeInfo[i];
                     i++;
                 }
                 break;
             }
-            
         }
         info[3] = data;
         info[4] = getPlaces(data);
@@ -463,6 +471,7 @@ function personInfo(num, total, order, crudeInfo) {
     }
     //console.log(info);
     person.campus = info[1];
+    person.splitedData = info[3];
     person.path = info[4];
     return person;
 }
