@@ -188,14 +188,15 @@
                             
                                 // Read the text in #number-input.
                                 let input = document.querySelector("#number-input");
-                                
-                                if (isNaN(input)) {  
+                                if(!input.length)
+                                    return;
+                                else if (isNaN(input)) { 
                                     window.alert("잘못된 형식의 입력입니다. 숫자를 입력하세요.");
                                     return;
                                 }
-
-                                number = input.value;
-                                if (!number.length) return;
+                                else {
+                                    number = input.value;
+                                }
 
                                 // Bring info and make a container to display
 
