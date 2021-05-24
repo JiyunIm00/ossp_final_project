@@ -182,24 +182,26 @@
 
 
                         // 입력창 관련
-                        let input = document.querySelector("#number-input");
+                        let searchButton = document.querySelector("#add");
                         let number;
-                        input.addEventListener("keyup", event => {
-                            if(event.keyCode == 13){
+                        searchButton.addEventListener("click", event => {
+                            
                                 // Read the text in #number-input.
-                                number = input.value;
-
-                                if (!number.length) return;
-
-                                if (parseInt(number) === NaN) {   // or maybe make a pop-up message.
-                                    alert("잘못된 형식의 입력입니다. 숫자를 입력하세요."); 
+                                let input = document.querySelector("#number-input");
+                                
+                                if (input.isNaN()) {  
+                                    window.alert("잘못된 형식의 입력입니다. 숫자를 입력하세요.");
                                     return;
                                 }
+
+                                number = input.value;
+                                if (!number.length) return;
+
                                 // Bring info and make a container to display
 
                                 // Clear #number-input.
                                 input.value = "";
-                                }
+                                
                         });
                     </script>
                 </div>
