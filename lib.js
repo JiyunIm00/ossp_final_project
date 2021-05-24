@@ -5,7 +5,7 @@ const navigator = require("navigator");
 const userAgent = navigator.userAgent;
 const defaulturl = "https://skb.skku.edu/haksaeng/status.do";
 
-// from https://usefulangle.com/post/170/nodejs-synchronous-http-request
+// async 구현은 <https://usefulangle.com/post/170/nodejs-synchronous-http-request>를 참고 하였습니다.
 
 // 마지막 페이지의 url을 반환하는 함수.
 function getPromise_LastUrl() {
@@ -25,8 +25,9 @@ function getPromise_LastUrl() {
                 });
 
                 res.on("end", () => {
-                    let root = parser.parse(data);
-                    let lastHtml = root.querySelectorAll(".page-last");
+                    let lastHtml = parser
+                        .parse(data)
+                        .querySelectorAll(".page-last");
 
                     ret = defaulturl + lastHtml[0]._attrs.href;
                     //console.log(ret);
@@ -41,7 +42,7 @@ function getPromise_LastUrl() {
     });
 }
 
-// async function to make http request
+// 마지막 페이지의 url을 반환하는 async 함수.
 async function makeSynchronousRequest_LastUrl(request) {
     try {
         let http_promise = getPromise_LastUrl();
@@ -55,7 +56,7 @@ async function makeSynchronousRequest_LastUrl(request) {
     }
 }
 
-// target 사람의 url을 반환하는 함수
+// target person의 url을 반환하는 함수
 function getPromise_FindPersonUrl(url, targetNum) {
     return new Promise((resolve, reject) => {
         https.get(
@@ -82,7 +83,7 @@ function getPromise_FindPersonUrl(url, targetNum) {
                             .trim()
                             .replace(/(\r\n\t|\n|\r\t)/gm, "")
                             .split("~");
-
+                        // 한 페이지에 1명의 정보만 담긴 케이스
                         if (splitedStr.length == 1) {
                             if (d.innerText.indexOf(String(targetNum)) != -1) {
                                 let splitedUrl = d.childNodes[1].rawAttrs
@@ -92,6 +93,7 @@ function getPromise_FindPersonUrl(url, targetNum) {
                                 resolve(defaulturl + splitedUrl);
                             }
                         } else {
+                            // 한 페이지에 2명 이상의 정보가 담긴 케이스
                             let num1 = parseInt(
                                 splitedStr[0].substring(
                                     splitedStr[0].indexOf(" ") + 1,
@@ -116,6 +118,7 @@ function getPromise_FindPersonUrl(url, targetNum) {
                             }
                         }
                     });
+                    // 만약 없을 경우.
                     resolve(-1);
                 });
                 res.on("error", (error) => {
@@ -126,7 +129,7 @@ function getPromise_FindPersonUrl(url, targetNum) {
     });
 }
 
-// async function to make http request
+// target person의 url을 반환하는 async 함수
 async function makeSynchronousRequest_FindPersonUrl(url, num, request) {
     try {
         let http_promise = getPromise_FindPersonUrl(url, num);
@@ -141,7 +144,7 @@ async function makeSynchronousRequest_FindPersonUrl(url, num, request) {
 }
 
 // 특정사람의 path를 반환하는 함수
-function getPromise_FindPath(url, num) {
+function getPromise_FindPath(url) {
     return new Promise((resolve, reject) => {
         https.get(
             url,
@@ -158,11 +161,18 @@ function getPromise_FindPath(url, num) {
                 });
 
                 res.on("end", () => {
-                    let root = parser.parse(data);
-                    let ret = "";
-                    root.querySelectorAll(".fr-view").forEach((d) => {
-                        ret += d;
-                    });
+                    let ret = [];
+                    let innerHtml = parser
+                        .parse(data)
+                        .querySelector(".fr-view");
+                    root = parser
+                        .parse(innerHtml)
+                        .querySelectorAll("p")
+                        .forEach((d) => {
+                            //console.log(d.innerText);
+                            if (d.innerText !== "") ret.push(d.innerText);
+                        });
+
                     resolve(ret);
                 });
 
@@ -174,7 +184,7 @@ function getPromise_FindPath(url, num) {
     });
 }
 
-// async function to make http request
+// 특정사람의 path를 반환하는 async 함수
 async function makeSynchronousRequest_FindPath(url, request) {
     try {
         let http_promise = getPromise_FindPath(url);
@@ -188,33 +198,54 @@ async function makeSynchronousRequest_FindPath(url, request) {
     }
 }
 
-// anonymous async function to execute some code synchronously after http request
-const findPersonv = async function (num) {
-    // wait to http request to finish
-    const basicUrl =
-        "https://skb.skku.edu/haksaeng/status.do?mode=list&&articleLimit=10&article.offset";
-    let i = 0;
-    let curUrl = basicUrl + "=" + i;
-    let last_url = await makeSynchronousRequest_LastUrl();
-    // console.log(curUrl);
-    let targeturl = await makeSynchronousRequest_FindPersonUrl(curUrl, num);
-    if (targeturl != -1) {
-        let path = await makeSynchronousRequest_FindPath(targeturl);
-        // 이부분을 return으로 교체
-        console.log(path);
-    }
-
-    while (curUrl !== last_url) {
-        i += 10;
-        curUrl = basicUrl + "=" + i;
-        targeturl = await makeSynchronousRequest_FindPersonUrl(curUrl, num);
-        if (targeturl != -1) {
+// 위에 작성된 함수들을 통합적으로 사용해
+async function getPromise_indPerson(num) {
+    return new Promise(async (resolve, reject) => {
+        // wait to http request to finish
+        const basicUrl =
+            "https://skb.skku.edu/haksaeng/status.do?mode=list&&articleLimit=10&article.offset";
+        let i = 0;
+        let curUrl = basicUrl + "=" + i;
+        let last_url = await makeSynchronousRequest_LastUrl();
+        // console.log(curUrl);
+        let targeturl = await makeSynchronousRequest_FindPersonUrl(curUrl, num);
+        if (targeturl !== -1) {
             let path = await makeSynchronousRequest_FindPath(targeturl);
             // 이부분을 return으로 교체
-            console.log(path);
+            // console.log(path);
+            resolve(path);
         }
+
+        while (curUrl !== last_url) {
+            i += 10;
+            curUrl = basicUrl + "=" + i;
+            targeturl = await makeSynchronousRequest_FindPersonUrl(curUrl, num);
+            if (targeturl !== -1) {
+                let path = await makeSynchronousRequest_FindPath(targeturl);
+                // 이부분을 return으로 교체
+                //console.log(path);
+                resolve(path);
+            }
+        }
+
+        // 만약 target person이 없을 경우.
+        //
+        if (targeturl === -1) reject();
+    });
+}
+async function makeSynchronousRequest_FindPerson(num, request) {
+    try {
+        let http_promise = getPromise_indPerson(num);
+        let path = await http_promise;
+
+        // holds response from server that is passed when Promise is resolved
+        return path;
+    } catch (error) {
+        // Promise rejected
+        console.log(error);
     }
-};
+}
+
 
 // target 사람이 포함된 포스트 내에 게시된 총 확진자의 수*/를 반환하는 함수
 function getPromise_FindTotalNumInPost(url, targetNum) {
@@ -434,3 +465,18 @@ findTotalNumInPost(69);
 findTargetSequence(69).then()
 console.log(targetSequence);
 module.exports = { findPersonv , findTotalNumInPost, findTargetSequence};
+
+// main function for debugging
+async function main() {
+    /*
+    let txt = [];
+    for (let i = 53; i <= 75; i++) {
+        txt.push(await makeSynchronousRequest_FindPerson(i));
+        //console.log(await makeSynchronousRequest_FindPerson(i));
+    }*/
+    console.log(await makeSynchronousRequest_FindPerson(75));
+}
+
+main();
+module.exports = { makeSynchronousRequest_FindPerson };
+
