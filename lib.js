@@ -424,15 +424,16 @@ function personInfo(num, total, order, crudeInfo) {
     // 동선 있는 경우
     if (total === 1) {
         let data = "";
-        for (let i = 0; i < n; i++) {
-            if (crudeInfo[i].indexOf("확진학생의 적극적인 협조로") !== -1) {
-                i++;
-                while (crudeInfo[i].indexOf("※") === -1) {
+        for(let i = 0; i < n; i++){
+            if(crudeInfo[i].indexOf("교내 동선") !== -1 || crudeInfo[i].indexOf("확진학생의 적극적인 협조") !== -1){
+                i++
+                while(crudeInfo[i].indexOf("의심증상 상담") === -1){
                     data += crudeInfo[i];
                     i++;
                 }
                 break;
             }
+            
         }
         info[3] = data;
         info[4] = getPlaces(data);
