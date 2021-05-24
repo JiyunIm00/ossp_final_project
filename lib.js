@@ -388,7 +388,7 @@ async function main() {
     //console.log(await makeSynchronousRequest_FindPerson(53));
 }
 
-main();
+//main();
 module.exports = { makeSynchronousRequest_FindPerson };
 
 function personInfo(num, total, order, crudeInfo) {
@@ -514,16 +514,16 @@ let placeNames = [
         "제2공학관 27",
         "공학실습동C(28)",
         "건축환경실험실",
-        "제1과학관31동",
-        "제2과학관32동",
+        "제1과학관 31",
+        "제2과학관 32",
         "화학관",
         "반도체관",
         "삼성학술정보관",
         "운용재",
-        "기초학문관51동",
+        "기초학문관 51",
         "약학관",
-        "생명공학관61동",
-        "생명공학관62동",
+        "생명공학관 61",
+        "생명공학관 62",
         "생명공학실습동",
         "대강당",
         "의학관",
