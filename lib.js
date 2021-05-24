@@ -426,7 +426,7 @@ function personInfo(num, total, order, crudeInfo) {
     if (total === 1) {
         let data = "";
         for (let i = 0; i < n; i++) {
-            if (crudeInfo[i].indexOf("확진학생의 적극적인 협조로") !== -1) {
+            if (crudeInfo[i].indexOf("교내 동선") !== -1) {
                 i++;
                 while (crudeInfo[i].indexOf("※") === -1) {
                     data += crudeInfo[i];
