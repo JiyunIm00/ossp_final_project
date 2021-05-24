@@ -20,7 +20,11 @@
 
 ## 1. API reference
 
+-
+
 ## 2. Releases
+
+-
 
 ## 3. Code of Conduct
 
@@ -52,3 +56,13 @@ var person = {
 -   html에서 require함수를 사용할 수 없음. import로 바꾸더라도 CORS ERROR가 발생함.(해결 X)
 
 #### Cur: 2에서 추출된 data를 수작업으로 local상에 array로 만들어서 구현했다.
+
+## 5. Work
+
+-   신영환:
+-   오민재:
+-   임지윤:
+
+## 6. Future
+
+-
