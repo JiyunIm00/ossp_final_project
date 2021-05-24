@@ -1,4 +1,3 @@
-const http = require("http");
 const https = require("https");
 const parser = require("node-html-parser");
 const navigator = require("navigator");
@@ -244,21 +243,6 @@ async function makeSynchronousRequest_FindPerson(num, request) {
     }
 }
 
-<<<<<<< HEAD
-// main function for debugging
-async function main() {
-    /*
-    let txt = [];
-    for (let i = 53; i <= 75; i++) {
-        txt.push(await makeSynchronousRequest_FindPerson(i));
-        //console.log(await makeSynchronousRequest_FindPerson(i));
-    }*/
-    console.log(await makeSynchronousRequest_FindPerson(75));
-}
-
-main();
-module.exports = { makeSynchronousRequest_FindPerson };
-=======
 // target 사람이 포함된 포스트 내에 게시된 총 확진자의 수*/를 반환하는 함수
 function getPromise_FindTotalNumInPost(url, targetNum) {
     return new Promise((resolve, reject) => {
@@ -308,8 +292,8 @@ function getPromise_FindTotalNumInPost(url, targetNum) {
                             for (let num = num1; num <= num2; num++) {
                                 if (num === targetNum) {
                                     /* target 사람이 포함된 포스트 내에 게시된 총 확진자의 수*/
-                                    let totalNumInPost = (num2 - num1) + 1;
-                                    //console.log(totalNumInPost) 
+                                    let totalNumInPost = num2 - num1 + 1;
+                                    //console.log(totalNumInPost)
                                     resolve(totalNumInPost);
                                 }
                             }
@@ -340,29 +324,35 @@ async function makeSynchronousRequest_FindTotalNumInPost(url, num) {
 }
 
 // async function to make http request
-const findTotalNumInPost = async function(num) {
+const findTotalNumInPost = async function (num) {
     const basicUrl =
         "https://skb.skku.edu/haksaeng/status.do?mode=list&&articleLimit=10&article.offset";
     let i = 0;
     let curUrl = basicUrl + "=" + i;
     let last_url = await makeSynchronousRequest_LastUrl();
 
-    let totalNumInPost = await makeSynchronousRequest_FindTotalNumInPost(curUrl, num);
-    if(totalNumInPost !== -1) {
+    let totalNumInPost = await makeSynchronousRequest_FindTotalNumInPost(
+        curUrl,
+        num
+    );
+    if (totalNumInPost !== -1) {
         //이 부분을 return으로 대체
         console.log(totalNumInPost);
     }
 
-    while(curUrl !== last_url) {
+    while (curUrl !== last_url) {
         i += 10;
         curUrl = basicUrl + "=" + i;
-        totalNumInPost = await makeSynchronousRequest_FindTotalNumInPost(curUrl, num);
-        if(totalNumInPost !== -1) {
+        totalNumInPost = await makeSynchronousRequest_FindTotalNumInPost(
+            curUrl,
+            num
+        );
+        if (totalNumInPost !== -1) {
             //이 부분을 return으로 대체
             console.log(totalNumInPost);
         }
     }
-}
+};
 
 // 포스트 내 target 사람의 순서
 function getPromise_FindTargetSequence(url, targetNum) {
@@ -413,8 +403,8 @@ function getPromise_FindTargetSequence(url, targetNum) {
                             for (let num = num1; num <= num2; num++) {
                                 if (num === targetNum) {
                                     /* target 사람이 포함된 Post에 게시된 총 확진자의 수 */
-                                    let targetSequence = (num - num1) + 1;
-                                    //console.log(targetSequence) 
+                                    let targetSequence = num - num1 + 1;
+                                    //console.log(targetSequence)
                                     resolve(targetSequence);
                                 }
                             }
@@ -445,35 +435,40 @@ async function makeSynchronousRequest_FindTargetSequence(url, num) {
 }
 
 // async function to make http request
-const findTargetSequence = async function(num) {
+const findTargetSequence = async function (num) {
     const basicUrl =
         "https://skb.skku.edu/haksaeng/status.do?mode=list&&articleLimit=10&article.offset";
     let i = 0;
     let curUrl = basicUrl + "=" + i;
     let last_url = await makeSynchronousRequest_LastUrl();
 
-    let targetSequence = await makeSynchronousRequest_FindTargetSequence(curUrl, num);
-    if(targetSequence !== -1) {
+    let targetSequence = await makeSynchronousRequest_FindTargetSequence(
+        curUrl,
+        num
+    );
+    if (targetSequence !== -1) {
         //이 부분을 return으로 대체
         //return targetSequence;
         console.log(targetSequence);
     }
 
-    while(curUrl !== last_url) {
+    while (curUrl !== last_url) {
         i += 10;
         curUrl = basicUrl + "=" + i;
-        targetSequence = await makeSynchronousRequest_FindTargetSequence(curUrl, num);
-        if(targetSequence !== -1) {
+        targetSequence = await makeSynchronousRequest_FindTargetSequence(
+            curUrl,
+            num
+        );
+        if (targetSequence !== -1) {
             //이 부분을 return으로 대체
-            // return targetSequence;
+            // eturn targetSequence;
             console.log(targetSequence);
         }
     }
-}
-
+};
 
 findPersonv(69);
 findTotalNumInPost(69);
-findTargetSequence(69);
-module.exports = { findPersonv , findTotalNumInPost, findTargetSequence};
->>>>>>> 8bb6588 (updated tagging)
+findTargetSequence(69).then();
+console.log(targetSequence);
+module.exports = { findPersonv, findTotalNumInPost, findTargetSequence };
