@@ -2,209 +2,253 @@
 <html>
     <head>
         <title>SKKU_Corona_Map</title>
-     
+
         <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-        
-        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=78impuwxr0"></script>     
-        
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+        />
+
+        <script
+            type="text/javascript"
+            src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=78impuwxr0"
+        ></script>
+
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">>
-        <link rel="stylesheet", href="style.css">
-        
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR:wght@500&display=swap"
+            rel="stylesheet"
+        />
+        >
+        <link rel="stylesheet" , href="style.css" />
     </head>
     <body>
         <div id="wrapper">
-            <div class="d-inline-flex p-2 bd-highlight" style="margin-bottom: 0px;">
-                <h2 style = "margin-top: 10px; background-color: blanchedalmond;">성균관대학교 확진자 동선</h2>
+            <div
+                class="d-inline-flex p-2 bd-highlight"
+                style="margin-bottom: 0px"
+            >
+                <h2 style="margin-top: 10px; background-color: blanchedalmond">
+                    성균관대학교 확진자 동선
+                </h2>
             </div>
             <div class="d-flex">
                 <div class="flex-grow-1 bg-light rounded-2 p-2 me-1 w-50">
                     <div class="d-inline-flex p-2 bd-highlight">
-                        <h3 style = "background-color: #6edf6eb9">인사캠</h3>
+                        <h3 style="background-color: #6edf6eb9">인사캠</h3>
                     </div>
-                    
-                    <div id="map1" style="width:400px;height:400px;"></div>
 
+                    <div id="map1" style="width: 400px; height: 400px"></div>
                 </div>
                 <div class="flex-grow-1 bg-light rounded-2 p-2 w-50">
                     <div class="d-inline-flex p-2 bd-highlight">
-                        <h3 style = "background-color: #6edf6eb9">자과캠</h3>
+                        <h3 style="background-color: #6edf6eb9">자과캠</h3>
                     </div>
-                    
-                    <div id="map2" style="width:400px;height:400px;"></div>
 
+                    <div id="map2" style="width: 400px; height: 400px"></div>
                 </div>
-
-                
             </div>
             <div class="dflex">
                 <div class="d-flex align-items-center mb-2 mt-2">
-                    <input type="text" class="form-control" id="number-input" placeholder="확진자 번호를 입력하세요.">
-                    <button type="button" id="add" class="btn btn-primary ms-1 text-nowrap">Search</button>
-                    <script>
-                        // 인사캠 지도
-                        var mapOptions1 = {
-                            center: new naver.maps.LatLng(37.5875515293465, 126.99326325081786),
-                            zoom: 16
-                        };
-                
-                        var map1 = new naver.maps.Map('map1', mapOptions1);
-                
-                        var marker_pos1 = {
-
-                            "600주년기념관":[37.587553261331415, 126.99452495090915],
-                            "법학관":[37.58736849120635, 126.9906234845225],
-                            "교수회관":[37.58864979264062, 126.9931239356516],
-                            "호암관":[37.58848672013139, 126.99193859735817],
-                            "중앙학술정보관":[37.58845858419305, 126.99417986957981],
-                            "학생회관":[37.58751957778467, 126.99331315067182],
-                            "국제관":[37.586846278131034, 126.99512615613428],
-                            "양현관":[37.58980928393619, 126.993241635981],
-                            "퇴계인문관":[37.589062529160216, 126.99157870768938],
-                            "다산경제관":[37.589039970447324, 126.99218841065118],
-                            "경영관":[37.588548254194976, 126.99269125302078],
-                            "수선관":[37.587830780152174, 126.99077828392309],
-                            "수선관(별관)":[37.58812748077748, 126.99098591935544],
-                            "킹고(K)하우스":[37.58776581894057, 126.9952576872889],
-                            "인터네셔널(I)하우스":[37.585881037605176, 126.99424078822312],
-                            "금잔디광장":[37.58794097893494, 126.99297398936812],
-                            "대운동장":[37.587477448335264, 126.99165783991585]
-                        };
-                        
-                        var markers1 = [];
-
-                        for (var key in marker_pos1) {
-
-                            var position = new naver.maps.LatLng(
-                                marker_pos1[key][0], marker_pos1[key][1]);
-
-                            var marker = new naver.maps.Marker({
-                                map: map1,
-                                position: position,
-                                title: key,
-                            });
-
-                            marker.addListener('mouseover', function(e) {
-                                highlightMarker(e.overlay);
-                            });
-                            marker.addListener('mouseout', function(e) {
-                                unhighlightMarker(e.overlay);
-                            });
-
-                            markers1.push(marker);
-
-                        };
-
-                        // 자과캠 지도
-                        var mapOptions2 = {
-                            center: new naver.maps.LatLng(37.294001573207794, 126.97466660855437),
-                            zoom: 16
-                        };
-                
-                        var map2 = new naver.maps.Map('map2', mapOptions2);
-                
-                        var marker_pos2 = {
-                            "학생회관":[37.293993391992025, 126.97357585530635],
-                            "복지회관":[37.29399104658904, 126.9725387543493],
-                            "수성관":[37.29320185217941, 126.97198618068263],
-                            "유틸리티센터":[37.29363106421013, 126.97858225709355],
-                            "환경플랜트":[37.290983722535245, 126.97526116095953],
-                            "건축관리실":[37.29494332904548, 126.9782669655373],
-                            "공학실습동A":[37.294205041161376, 126.97807921090859],
-                            "제1공학관21동":[37.29362038029, 126.976448427834],
-                            "제1공학관22동":[37.29384656349899, 126.97710825124348],
-                            "제1공학관23동":[37.294298927876824, 126.97667909780641],
-                            "공학실습동B(24)":[37.29328750565124, 126.97781635441459],
-                            "제2공학관25동":[37.29475982463392, 126.97671664873218],
-                            "제2공학관26동":[37.29499880702589, 126.97745157399308],
-                            "제2공학관27동":[37.29547250202733, 126.97700632730225],
-                            "공학실습동C(28)":[37.294452560447034, 126.9782562366876],
-                            "건축환경실험실":[37.29334298486408, 126.97695268312259],
-                            "제1과학관31동":[37.294499503673684, 126.9751931540079],
-                            "제2과학관32동":[37.29496466673989, 126.97495175519954],
-                            "화학관":[37.29153775573484, 126.97682930149837],
-                            "반도체관":[37.291648716692144, 126.97771443046226],
-                            "삼성학술정보관":[37.293923380267664, 126.9748820177734],
-                            "운용재":[37.29465313583996, 126.97206033387081],
-                            "기초학문관51동":[37.29537861678552, 126.97437239804557],
-                            "약학관":[37.29191331523712, 126.97666836896899],
-                            "생명공학관61동":[37.29589498427068, 126.97399152436994],
-                            "생명공학관62동":[37.29609128832887, 126.97450114407641],
-                            "생명공학실습동":[37.29510549537773, 126.97811676181513],
-                            "대강당":[37.29233154975799, 126.97238219896532],
-                            "의학관":[37.29217364516423, 126.97342289605015],
-                            "체육관":[37.292365691246445, 126.9706226698589],
-                            "제1종합연구동":[37.292267534417796, 126.97836888946405],
-                            "제2종합연구동":[37.2931637441636, 126.97842253364371],
-                            "제약기술관":[37.29145240104462, 126.97638405481774],
-                            "산학협력센터":[37.29593339161983, 126.9757725111496],
-                            "N센터":[37.292032811036016, 126.97564912953719],
-                            "학군단":[37.294550714424844, 126.97185112157464],
-                            "기숙사인관":[37.29689783659106, 126.97386814275583],
-                            "기숙사의관":[37.296923441155926, 126.97458161034491],
-                            "기숙사예관":[37.29653083687054, 126.97559012092198],
-                            "기숙사지관":[37.296360138711805, 126.97762859977861],
-                            "게스트하우스":[37.29579256456275, 126.97777343906363],
-                            "기숙사신관":[37.29623638231038, 126.9728542677458]
-                        };
-
-                        var markers2 = [];
-
-                        for (var key in marker_pos2) {
-
-                            var position = new naver.maps.LatLng(
-                                marker_pos2[key][0], marker_pos2[key][1]);
-
-                            var marker = new naver.maps.Marker({
-                                map: map2,
-                                position: position,
-                                title: key,
-                            });
-
-                            marker.addListener('mouseover', function(e) {
-                                highlightMarker(e.overlay);
-                            });
-                            marker.addListener('mouseout', function(e) {
-                                unhighlightMarker(e.overlay);
-                            });
-
-                            markers2.push(marker);
-
-                        };
-
-
-                        // 입력창 관련
-                        let searchButton = document.querySelector("#add");
-                        let number;
-                        searchButton.addEventListener("click", event => {
-                            
-                               // Read the text in #number-input.
-                                let input = document.querySelector("#number-input");
-                                let number = input.value;
-                                if(!number.length)
-                                    return;
-                                else if (isNaN(number))
-                                    window.alert("잘못된 형식의 입력입니다. 숫자를 입력하세요.");
-
-                               
-                                // Bring info and make a container to display
-
-                                // Clear #number-input.
-                                input.value = "";
-                                
-                        });
-                    </script>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="number-input"
+                        placeholder="확진자 번호를 입력하세요."
+                    />
+                    <button
+                        type="button"
+                        id="add"
+                        class="btn btn-primary ms-1 text-nowrap"
+                    >
+                        Search
+                    </button>
                 </div>
                 <a></a>
             </div>
         </div>
+        <script type="module">
+            import lib from "./lib.js";
+
+            // 인사캠 지도
+            var mapOptions1 = {
+                center: new naver.maps.LatLng(
+                    37.5875515293465,
+                    126.99326325081786
+                ),
+                zoom: 16,
+            };
+
+            var map1 = new naver.maps.Map("map1", mapOptions1);
+
+            var marker_pos1 = {
+                "600주년기념관": [37.587553261331415, 126.99452495090915],
+                법학관: [37.58736849120635, 126.9906234845225],
+                교수회관: [37.58864979264062, 126.9931239356516],
+                호암관: [37.58848672013139, 126.99193859735817],
+                중앙학술정보관: [37.58845858419305, 126.99417986957981],
+                학생회관: [37.58751957778467, 126.99331315067182],
+                국제관: [37.586846278131034, 126.99512615613428],
+                양현관: [37.58980928393619, 126.993241635981],
+                퇴계인문관: [37.589062529160216, 126.99157870768938],
+                다산경제관: [37.589039970447324, 126.99218841065118],
+                경영관: [37.588548254194976, 126.99269125302078],
+                수선관: [37.587830780152174, 126.99077828392309],
+                "수선관(별관)": [37.58812748077748, 126.99098591935544],
+                "킹고(K)하우스": [37.58776581894057, 126.9952576872889],
+                "인터네셔널(I)하우스": [37.585881037605176, 126.99424078822312],
+                금잔디광장: [37.58794097893494, 126.99297398936812],
+                대운동장: [37.587477448335264, 126.99165783991585],
+            };
+
+            var markers1 = [];
+
+            for (var key in marker_pos1) {
+                var position = new naver.maps.LatLng(
+                    marker_pos1[key][0],
+                    marker_pos1[key][1]
+                );
+
+                var marker = new naver.maps.Marker({
+                    map: map1,
+                    position: position,
+                    title: key,
+                });
+
+                marker.addListener("mouseover", function (e) {
+                    highlightMarker(e.overlay);
+                });
+                marker.addListener("mouseout", function (e) {
+                    unhighlightMarker(e.overlay);
+                });
+
+                markers1.push(marker);
+            }
+
+            // 자과캠 지도
+            var mapOptions2 = {
+                center: new naver.maps.LatLng(
+                    37.294001573207794,
+                    126.97466660855437
+                ),
+                zoom: 16,
+            };
+
+            var map2 = new naver.maps.Map("map2", mapOptions2);
+
+            var marker_pos2 = {
+                학생회관: [37.293993391992025, 126.97357585530635],
+                복지회관: [37.29399104658904, 126.9725387543493],
+                수성관: [37.29320185217941, 126.97198618068263],
+                유틸리티센터: [37.29363106421013, 126.97858225709355],
+                환경플랜트: [37.290983722535245, 126.97526116095953],
+                건축관리실: [37.29494332904548, 126.9782669655373],
+                공학실습동A: [37.294205041161376, 126.97807921090859],
+                제1공학관21동: [37.29362038029, 126.976448427834],
+                제1공학관22동: [37.29384656349899, 126.97710825124348],
+                제1공학관23동: [37.294298927876824, 126.97667909780641],
+                "공학실습동B(24)": [37.29328750565124, 126.97781635441459],
+                제2공학관25동: [37.29475982463392, 126.97671664873218],
+                제2공학관26동: [37.29499880702589, 126.97745157399308],
+                제2공학관27동: [37.29547250202733, 126.97700632730225],
+                "공학실습동C(28)": [37.294452560447034, 126.9782562366876],
+                건축환경실험실: [37.29334298486408, 126.97695268312259],
+                제1과학관31동: [37.294499503673684, 126.9751931540079],
+                제2과학관32동: [37.29496466673989, 126.97495175519954],
+                화학관: [37.29153775573484, 126.97682930149837],
+                반도체관: [37.291648716692144, 126.97771443046226],
+                삼성학술정보관: [37.293923380267664, 126.9748820177734],
+                운용재: [37.29465313583996, 126.97206033387081],
+                기초학문관51동: [37.29537861678552, 126.97437239804557],
+                약학관: [37.29191331523712, 126.97666836896899],
+                생명공학관61동: [37.29589498427068, 126.97399152436994],
+                생명공학관62동: [37.29609128832887, 126.97450114407641],
+                생명공학실습동: [37.29510549537773, 126.97811676181513],
+                대강당: [37.29233154975799, 126.97238219896532],
+                의학관: [37.29217364516423, 126.97342289605015],
+                체육관: [37.292365691246445, 126.9706226698589],
+                제1종합연구동: [37.292267534417796, 126.97836888946405],
+                제2종합연구동: [37.2931637441636, 126.97842253364371],
+                제약기술관: [37.29145240104462, 126.97638405481774],
+                산학협력센터: [37.29593339161983, 126.9757725111496],
+                N센터: [37.292032811036016, 126.97564912953719],
+                학군단: [37.294550714424844, 126.97185112157464],
+                기숙사인관: [37.29689783659106, 126.97386814275583],
+                기숙사의관: [37.296923441155926, 126.97458161034491],
+                기숙사예관: [37.29653083687054, 126.97559012092198],
+                기숙사지관: [37.296360138711805, 126.97762859977861],
+                게스트하우스: [37.29579256456275, 126.97777343906363],
+                기숙사신관: [37.29623638231038, 126.9728542677458],
+            };
+
+            var markers2 = [];
+
+            for (var key in marker_pos2) {
+                var position = new naver.maps.LatLng(
+                    marker_pos2[key][0],
+                    marker_pos2[key][1]
+                );
+
+                var marker = new naver.maps.Marker({
+                    map: map2,
+                    position: position,
+                    title: key,
+                });
+
+                marker.addListener("mouseover", function (e) {
+                    highlightMarker(e.overlay);
+                });
+                marker.addListener("mouseout", function (e) {
+                    unhighlightMarker(e.overlay);
+                });
+
+                markers2.push(marker);
+            }
+
+            let searchButton = document.querySelector("#add");
+            let number;
+            searchButton.addEventListener("click", async (event) => {
+                // Read the text in #number-input.
+                let input = document.querySelector("#number-input");
+                let number = input.value;
+                if (!number.length) return;
+                else if (isNaN(number))
+                    window.alert(
+                        "잘못된 형식의 입력입니다. 숫자를 입력하세요."
+                    );
+                else if (number <= 51)
+                    window.alert(
+                        "개인정보보호를 위하여 교내 동선 비공개 처리되었습니다."
+                    );
+                // Bring info and make a container to display
+                else {
+                    if (number == 53) {
+                    } else if (number == 55) {
+                    } else {
+                        let findPerson =
+                            await lib.makeSynchronousRequest_FindPerson(number);
+                        let splitedData = findPerson.splitedData;
+                        showSplitedData(splitedData);
+                    }
+                }
+
+                // Clear #number-input.
+                input.value = "";
+            });
+        </script>
     </body>
 </html>

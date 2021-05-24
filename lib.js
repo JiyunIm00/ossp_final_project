@@ -376,21 +376,6 @@ async function makeSynchronousRequest_FindPerson(num, request) {
     }
 }
 
-// main function for debugging
-async function main() {
-    let txt = []; //53 55 issue
-    for (let i = 56; i <= 76; i++) {
-        txt.push(await makeSynchronousRequest_FindPerson(i));
-        console.log(i);
-        //console.log(await makeSynchronousRequest_FindPerson(i));
-    }
-    console.log(txt);
-    //console.log(await makeSynchronousRequest_FindPerson(53));
-}
-
-main();
-module.exports = { makeSynchronousRequest_FindPerson };
-
 function personInfo(num, total, order, crudeInfo) {
     // struct로 바꿔도 됨
     // 0-확진자 번호, 1-인사0/자과1, 2-날짜, 3-동선, 4-다녀간 장소 배열
@@ -565,3 +550,5 @@ function getPlaces(dataString) {
     }
     return visited;
 }
+
+module.exports = { makeSynchronousRequest_FindPerson };
