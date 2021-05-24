@@ -297,6 +297,7 @@ async function getPromise_FindPerson(num) {
             path: [],
         };
         // wait to http request to finish
+        person.confirmed_Num = num;
         const basicUrl =
             "https://skb.skku.edu/haksaeng/status.do?mode=list&&articleLimit=10&article.offset";
         let i = 0;
