@@ -377,3 +377,121 @@ async function main() {
 
 main();
 module.exports = { makeSynchronousRequest_FindPerson };
+
+
+function personInfo (num, total, order, crudeInfo) {
+    // struct로 바꿔도 됨
+    // 0-확진자 번호, 1-인사0/자과1, 2-날짜, 3-동선, 4-다녀간 장소 배열
+    let info = [num, 0, 0, 0, []];
+    let n = crudeInfo.length;
+
+    for(let i = 0; i < n; i++){
+
+        if(crudeInfo[i].indexOf("인사캠") !== -1) {
+            info[1] = 1;
+            break;
+        }
+        else if(crudeInfo[i].indexOf("자과캠") !== -1) {
+            info[1] = 2;
+            break;
+        }
+
+        // 혼합인 경우
+    }
+
+    info[2] = crudeInfo[0].substring(0,6);  // 게시물마다 양식이 다름... .match로 고쳐보기
+
+    // 동선 없는 경우
+    for(let i = 0; i < n; i++){
+
+        if(crudeInfo[i].indexOf("교내 동선은 없습니다.") !== -1){
+            info[3] = "교내 동선은 없습니다.";
+            return info;
+        }
+    }
+
+    // 동선 있는 경우
+    if(total === 1){
+        let data = "";
+        for(let i = 0; i < n; i++){
+            if(crudeInfo[i].indexOf("확진학생의 적극적인 협조로") !== -1){
+                i++
+                while(crudeInfo[i].indexOf("※") === -1){
+                    data += crudeInfo[i];
+                    i++;
+                }
+                break;
+            }
+            
+        }
+        info[3] = data;
+        info[4] = getPlaces(data);
+    }
+    else{
+        let order_alphabet = ["A", "B", "C", "D"];
+        let alphabet = order_alphabet[order-1];
+        let i;
+
+        for(i = 0; i<n; i++){
+            if(crudeInfo[i].indexOf(alphabet) !== -1) {
+                break;
+            }
+        }
+        let data = "";
+        i++;
+        for(i;i<n;i++){
+            if(crudeInfo[i].indexOf("※") !== -1 || crudeInfo[i].indexOf(order_alphabet[order]) !== -1) break;
+            data += crudeInfo[i];
+        }
+        
+        info[3] = data;
+        info[4] = getPlaces(data);
+        
+        
+    }
+    return info;
+}
+
+let placeNames = [[
+    '600주년기념관',       '법학관',       
+    '교수회관',            '호암관',       
+    '중앙학술정보관',      '학생회관',     
+    '국제관',              '양현관',       
+    '퇴계인문관',          '다산경제관',   
+    '경영관',              '수선관',       
+    '수선관(별관)',        '킹고(K)하우스',
+    '인터네셔널(I)하우스', '금잔디광장',   
+    '대운동장'
+  ], [
+    '학생회관',       '복지회관',        '수성관',
+    '유틸리티센터',   '환경플랜트',      '건축관리실',
+    '공학실습동A',    '제1공학관21동',   '제1공학관22동',
+    '제1공학관23동',  '공학실습동B(24)', '제2공학관25동',
+    '제2공학관26동',  '제2공학관27동',   '공학실습동C(28)',
+    '건축환경실험실', '제1과학관31동',   '제2과학관32동',
+    '화학관',         '반도체관',        '삼성학술정보관',
+    '운용재',         '기초학문관51동',  '약학관',
+    '생명공학관61동', '생명공학관62동',  '생명공학실습동',
+    '대강당',         '의학관',          '체육관',
+    '제1종합연구동',  '제2종합연구동',   '제약기술관',
+    '산학협력센터',   'N센터',           '학군단',
+    '기숙사인관',     '기숙사의관',      '기숙사예관',
+    '기숙사지관',     '게스트하우스',    '기숙사신관'
+  ]];
+
+function getPlaces(dataString){
+    let visited = [];
+    let n = placeNames[0].length;
+    let m = placeNames[1].length;
+    for(let i = 0; i < n; i++){   
+        if(dataString.indexOf(placeNames[0][i]) !== -1 && !visited.includes(placeNames[0][i])){
+            visited.push(placeNames[0][i]);
+        }
+    }
+    for(let i = 0; i < m; i++){   
+        if(dataString.indexOf(placeNames[1][i]) !== -1 && !visited.includes(placeNames[1][i])){
+            visited.push(placeNames[1][i]);
+        }
+    }
+    return visited;
+}
