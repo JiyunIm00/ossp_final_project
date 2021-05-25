@@ -291,6 +291,8 @@
                             let descriptions = document.querySelector("#descriptions");
                             let description = document.createElement("p-2");
                             description.style.marginBottom = "10px";
+                            description.style.marginLeft = "5px";
+                            description.style.marginRight = "5px";
                             description.innerText =  "#" + number + "번 확진자\n" + splitedData[number-52];
                             descriptions.appendChild(description);
                             mark_path(visited_data[number-52]);
