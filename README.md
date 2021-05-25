@@ -6,7 +6,7 @@
 
 ## Example
 
-![Screenshot 2021-05-25 at 02 20 39](https://user-images.githubusercontent.com/76720781/119384723-1e3e9680-bd00-11eb-8d41-88e2a7a1b207.jpg)
+<img width="1049" alt="2021-05-25" src="https://user-images.githubusercontent.com/80454079/119442329-976ed580-bd62-11eb-8547-8ad804998e85.png">
 
 ## Installation
 
