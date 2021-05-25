@@ -55,7 +55,7 @@ async function makeSynchronousRequest_LastUrl(request) {
     }
 }
 
-// target person의 url을 반환하는 함수
+// target person의 정보가 담긴 웹페이지의 url을 반환하는 함수
 function getPromise_FindPersonUrl(url, targetNum) {
     return new Promise((resolve, reject) => {
         https.get(
@@ -75,6 +75,7 @@ function getPromise_FindPersonUrl(url, targetNum) {
                 res.on("end", () => {
                     let root = parser.parse(data);
                     let ret = "";
+                    // 각 확진자의 웹페이지로 들어가는 url은 "dt.board-list-content-title"에 존재.
                     root.querySelectorAll(
                         "dt.board-list-content-title"
                     ).forEach((d) => {
@@ -117,7 +118,7 @@ function getPromise_FindPersonUrl(url, targetNum) {
                             }
                         }
                     });
-                    // 만약 없을 경우.
+                    // 만약 해당 확진자가 존재하지 않을 경우.
                     resolve(-1);
                 });
                 res.on("error", (error) => {
@@ -141,6 +142,7 @@ async function makeSynchronousRequest_FindPersonUrl(url, num, request) {
         console.log(error);
     }
 }
+// 해당 확진자의 웹페이지에 존재하는 확진환자 정보의 수와 #번째 인지 추출하는 함수.
 function getPromise_FindTargetSequence(url, targetNum) {
     return new Promise((resolve, reject) => {
         https.get(
@@ -214,7 +216,7 @@ function getPromise_FindTargetSequence(url, targetNum) {
     });
 }
 
-// async function to make http request
+// 해당 확진자의 웹페이지에 존재하는 확진환자 정보의 수와 #번째 인지 추출하는 async 함수.
 async function makeSynchronousRequest_FindTargetSequence(url, num) {
     try {
         let http_promise = getPromise_FindTargetSequence(url, num);
@@ -247,6 +249,7 @@ function getPromise_FindPath(url) {
 
                 res.on("end", () => {
                     let ret = [];
+                    // 확진자의 동선에 대한 정보는 ".fr-view"에 존재한다.
                     let innerHtml = parser
                         .parse(data)
                         .querySelector(".fr-view");
@@ -286,6 +289,7 @@ async function makeSynchronousRequest_FindPath(url, request) {
 // 위에 작성된 함수들을 통합적으로 사용해 사람의 path를 구하는 함수
 async function getPromise_FindPerson(num) {
     return new Promise(async (resolve, reject) => {
+        // target person의 정보를 object로 저장.
         var person = {
             url: "",
             confirmed_Num: 0,
@@ -297,6 +301,7 @@ async function getPromise_FindPerson(num) {
             path: [],
         };
         person.confirmed_Num = num;
+
         // wait to http request to finish
         const basicUrl =
             "https://skb.skku.edu/haksaeng/status.do?mode=list&&articleLimit=10&article.offset";
@@ -359,7 +364,6 @@ async function getPromise_FindPerson(num) {
         }
 
         // 만약 target person이 없을 경우.
-        //
         if (targeturl === -1) reject();
     });
 }
@@ -376,29 +380,78 @@ async function makeSynchronousRequest_FindPerson(num, request) {
     }
 }
 
-// main function for debugging
-async function main() {
-    let txt = []; //53 55 issue
-    for (let i = 56; i <= 76; i++) {
-        txt.push(await makeSynchronousRequest_FindPerson(i));
-        console.log(i);
-        //console.log(await makeSynchronousRequest_FindPerson(i));
-    }
-    console.log(txt);
-    //console.log(await makeSynchronousRequest_FindPerson(53));
-}
-
-//main();
-module.exports = { makeSynchronousRequest_FindPerson };
-
+let placeNames = [
+    [
+        "600주년기념관",
+        "법학관",
+        "교수회관",
+        "호암관",
+        "중앙학술정보관",
+        "학생회관",
+        "국제관",
+        "양현관",
+        "퇴계인문관",
+        "다산경제관",
+        "경영관",
+        "수선관",
+        "수선관(별관)",
+        "킹고(K)하우스",
+        "인터네셔널(I)하우스",
+        "금잔디광장",
+        "대운동장",
+    ],
+    [
+        "학생회관",
+        "복지회관",
+        "수성관",
+        "유틸리티센터",
+        "환경플랜트",
+        "건축관리실",
+        "공학실습동A",
+        "제1공학관 21",
+        "제1공학관 22",
+        "제1공학관 23",
+        "공학실습동B(24)",
+        "제2공학관 25",
+        "제2공학관 26",
+        "제2공학관 27",
+        "공학실습동C(28)",
+        "건축환경실험실",
+        "제1과학관 31",
+        "제2과학관 32",
+        "화학관",
+        "반도체관",
+        "삼성학술정보관",
+        "운용재",
+        "기초학문관 51",
+        "약학관",
+        "생명공학관 61",
+        "생명공학관 62",
+        "생명공학실습동",
+        "대강당",
+        "의학관",
+        "체육관",
+        "제1종합연구동",
+        "제2종합연구동",
+        "제약기술관",
+        "산학협력센터",
+        "N센터",
+        "학군단",
+        "기숙사인관",
+        "기숙사의관",
+        "기숙사예관",
+        "기숙사지관",
+        "게스트하우스",
+        "기숙사신관",
+    ],
+];
+// 확진자의 정보를 추출하는 함수
 function personInfo(num, total, order, crudeInfo) {
-    // struct로 바꿔도 됨
-    // 0-확진자 번호, 1-인사0/자과1, 2-날짜, 3-동선, 4-다녀간 장소 배열
     var person = {
         campus: "",
         splitedData: "",
         path: [],
-    };
+    }; // 0-확진자 번호, 1-인사0/자과1, 2-날짜, 3-동선, 4-다녀간 장소 배열
     let info = [num, 0, 0, 0, []];
     let n = crudeInfo.length;
 
@@ -477,72 +530,6 @@ function personInfo(num, total, order, crudeInfo) {
     return person;
 }
 
-let placeNames = [
-    [
-        "600주년기념관",
-        "법학관",
-        "교수회관",
-        "호암관",
-        "중앙학술정보관",
-        "학생회관",
-        "국제관",
-        "양현관",
-        "퇴계인문관",
-        "다산경제관",
-        "경영관",
-        "수선관",
-        "수선관(별관)",
-        "킹고(K)하우스",
-        "인터네셔널(I)하우스",
-        "금잔디광장",
-        "대운동장",
-    ],
-    [
-        "학생회관",
-        "복지회관",
-        "수성관",
-        "유틸리티센터",
-        "환경플랜트",
-        "건축관리실",
-        "공학실습동A",
-        "제1공학관 21",
-        "제1공학관 22",
-        "제1공학관 23",
-        "공학실습동B(24)",
-        "제2공학관 25",
-        "제2공학관 26",
-        "제2공학관 27",
-        "공학실습동C(28)",
-        "건축환경실험실",
-        "제1과학관 31",
-        "제2과학관 32",
-        "화학관",
-        "반도체관",
-        "삼성학술정보관",
-        "운용재",
-        "기초학문관 51",
-        "약학관",
-        "생명공학관 61",
-        "생명공학관 62",
-        "생명공학실습동",
-        "대강당",
-        "의학관",
-        "체육관",
-        "제1종합연구동",
-        "제2종합연구동",
-        "제약기술관",
-        "산학협력센터",
-        "N센터",
-        "학군단",
-        "기숙사인관",
-        "기숙사의관",
-        "기숙사예관",
-        "기숙사지관",
-        "게스트하우스",
-        "기숙사신관",
-    ],
-];
-
 function getPlaces(dataString) {
     let visited = [];
     let n = placeNames[0].length;
@@ -565,3 +552,5 @@ function getPlaces(dataString) {
     }
     return visited;
 }
+
+module.exports = { makeSynchronousRequest_FindPerson };
