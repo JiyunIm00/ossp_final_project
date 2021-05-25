@@ -18,7 +18,7 @@
 
 ## How to use
 
-1. [SKKU Corona Map](https://jiyunim00.github.io/ossp_final_project/)클릭
+1. [SKKU Corona Map](https://jiyunim00.github.io/ossp_final_project/) 클릭
 2. 하단의 **textfield에 번호를 입력**
 3. **Search button을 클릭**하면 지도와 하단에 동선이 표시된다.
 
