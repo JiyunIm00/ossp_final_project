@@ -134,9 +134,28 @@
                 };
 
                 var markers2 = [];
-
+                var path_line1 = [];
+                var path_line2 = [];
                 // 경로 표시
                 function mark_path(visited){
+                    
+                    for(var i = 0; markers1.length !== 0;){
+                        markers1[i].setMap(null);
+                        markers1.shift();
+                    }
+                    for(var i = 0; markers2.length !== 0;){
+                        markers2[i].setMap(null);
+                        markers2.shift();
+                    }
+                    
+                    for(var i = 0; path_line1.length !== 0;){
+                        path_line1[i].setMap(null);
+                        path_line1.shift();
+                    }
+                    for(var i = 0; path_line2.length !== 0;){
+                        path_line2[i].setMap(null);
+                        path_line2.shift();
+                    }
 
                     var markers_line1 = [];
                     var markers_line2 = [];
@@ -147,10 +166,11 @@
                                 marker_pos1[key][0], marker_pos1[key][1]);
 
                             var marker = new naver.maps.Marker({
-                                map: map1,
+                                map: null,
                                 position: position,
                                 title: key,
                             });
+                            marker.setMap(map1);
                             markers_line1.push(position);
                             markers1.push(marker);
                         }
@@ -161,28 +181,35 @@
                                 marker_pos2[key][0], marker_pos2[key][1]);
 
                             var marker = new naver.maps.Marker({
-                                map: map2,
+                                map: null,
                                 position: position,
                                 title: key,
                             });
+                            marker.setMap(map2);
                             markers_line2.push(position);
                             markers2.push(marker);
                         }
                     }
-                    var path_line = new naver.maps.Polyline({
+                    path1 = new naver.maps.Polyline({
                         path: markers_line1,
                         strokeColor: "#FF0000",
                         strokeOpacity: 0.8,
                         strokeWeight: 3,
-                        map: map1
-                    })
-                    var path_line = new naver.maps.Polyline({
+                        map: null
+                    });
+                    path1.setMap(map1);
+                    path_line1.push(path1);
+
+                    path2 = new naver.maps.Polyline({
                         path: markers_line2,
                         strokeColor: "#FF0000",
                         strokeOpacity: 0.8,
                         strokeWeight: 3,
-                        map: map2
-                    })
+                        map: null
+                    });
+                    path2.setMap(map2);
+                    path_line2.push(path2);
+                    
                 }
                 
                 let visited_data = [
