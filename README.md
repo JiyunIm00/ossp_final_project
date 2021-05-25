@@ -50,11 +50,11 @@ var person = {
 
 -   html에서 require함수를 사용할 수 없음. import로 바꾸더라도 CORS ERROR가 발생함.(해결 X)
 
+> #### Cur: 2에서 추출된 data를 수작업으로 local상에 array로 만들어서 구현했다.
+
 ## 3. Future
 
 -   현재는 v.1.#.#에서는 CORS문제를 해결하지 못해 html문서상에 lib.js와 main.js를 불러오지 못하고 있습니다. 이후 해결방법을 알게되면 수정할 예정입니다. 혹시 해결 방법을 아시는 분은 알려주시길 바랍니다.
-
-> #### Cur: 2에서 추출된 data를 수작업으로 local상에 array로 만들어서 구현했다.
 
 ## 4. Code of Conduct
 
