@@ -6,7 +6,7 @@
 
 ## Example
 
-<img width="700" alt="2021-05-25" src="https://user-images.githubusercontent.com/80454079/119442329-976ed580-bd62-11eb-8547-8ad804998e85.png">
+<img width="880" alt="2021-05-25" src="https://user-images.githubusercontent.com/80454079/119442329-976ed580-bd62-11eb-8547-8ad804998e85.png">
 
 ![Final_Project](https://user-images.githubusercontent.com/80454079/119444378-19acc900-bd66-11eb-8b32-75a294048f46.gif)
 
