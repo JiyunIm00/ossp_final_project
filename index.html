@@ -49,10 +49,6 @@
             <div class="d-flex flex-column mb-3" id="descriptions"></div>
             <script>
 
-                // sample input array of visited places
-                let sample_visited_1 = [ '중앙학술정보관', '경영관' ];
-                let sample_visited_2 = [ '제1공학관 22', '제1공학관 23', '제2공학관 26', '기초학문관 51', '생명공학관 61' ];
-
                 // 인사캠 지도
                 var mapOptions1 = {
                     center: new naver.maps.LatLng(37.5875515293465, 126.99326325081786),
@@ -141,6 +137,7 @@
 
                 // 경로 표시
                 function mark_path(visited){
+
                     var markers_line1 = [];
                     var markers_line2 = [];
 
@@ -187,6 +184,36 @@
                         map: map2
                     })
                 }
+                
+                let visited_data = [
+                    [], //52 = 52 + 0
+                    ["의학관"], //53
+                    ["산학협력센터"], //54
+                    ["법학관", "경영관"],
+                    ["산학협력센터"],
+                    ["양현관", "경영관"],
+                    ["교수회관", "중앙학술정보관", "양현관"],
+                    ["양현관"],
+                    ["중앙학술정보관", "양현관", "경영관"],
+                    ["양현관", "경영관", "수선관"],
+                    ["양현관", "경영관", "수선관"],
+                    [],
+                    [],
+                    ["중앙학술정보관", "경영관"],
+                    [ '제1공학관 22', '제1공학관 23', '제2공학관 26', '기초학문관 51', '생명공학관 61' ],
+                    [],
+                    ["제1공학관 22", "제2공학관 26"],
+                    ["호암관", "제1공학관 22", "제2공학관 26"],
+                    ["복지회관", "삼성학술정보관"],
+                    ["학생회관", "삼성학술정보관"],
+                    [],
+                    [],
+                    [],
+                    [],
+                    ["제1공학관 23"],
+
+                ]
+
                 let splitedData = [
                     "교내 동선은 없습니다.", //52 = 52 + 0
                     "- 4/1~4/6 의학관 1층 의과대학행정실 근무(주말 제외)", //53 = 52 + 1
@@ -239,6 +266,7 @@
                             description.style.marginBottom = "10px";
                             description.innerText =  "#" + number + "번 확진자\n" + splitedData[number-52];
                             descriptions.appendChild(description);
+                            mark_path(visited_data[number-52]);
                         }
                         else
                             window.alert("해당 번호를 가진 확진자는 존재하지 않습니다.");
