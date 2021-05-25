@@ -144,7 +144,9 @@
 
                         // 경로 표시
                         function mark_path(visited){
-                            var markers = [];
+                            var markers_line1 = [];
+                            var markers_line2 = [];
+
                             for (var key in marker_pos1) {
                                 if(visited.includes(key)){
                                     var position = new naver.maps.LatLng(
@@ -155,8 +157,8 @@
                                         position: position,
                                         title: key,
                                     });
-
-                                    markers.push(marker);
+                                    markers_line1.push(position);
+                                    markers1.push(marker);
                                 }
                             }
                             for (var key in marker_pos2) {
@@ -169,11 +171,24 @@
                                         position: position,
                                         title: key,
                                     });
-
-                                    markers.push(marker);
+                                    markers_line2.push(position);
+                                    markers2.push(marker);
                                 }
                             }
-                            
+                            var path_line = new naver.maps.Polyline({
+                                path: markers_line1,
+                                strokeColor: "#FF0000",
+                                strokeOpacity: 0.8,
+                                strokeWeight: 3,
+                                map: map1
+                            })
+                            var path_line = new naver.maps.Polyline({
+                                path: markers_line2,
+                                strokeColor: "#FF0000",
+                                strokeOpacity: 0.8,
+                                strokeWeight: 3,
+                                map: map2
+                            })
                         }
                         // 경로 표시 샘플
                         mark_path(sample_visited_1);
