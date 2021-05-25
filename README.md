@@ -64,7 +64,9 @@ var person = {
 
 ## 5. API reference
 
--   네이버 지도 API 사용
+-   [네이버 지도 API](https://navermaps.github.io/maps.js/docs/tutorial-2-Getting-Started.html) 사용
+-   1. [마커](https://navermaps.github.io/maps.js/docs/naver.maps.Marker.html)
+-   2. [경로선(polyline 사용)](https://navermaps.github.io/maps.js/docs/naver.maps.Polyline.html)
 
 ## 6. Work
 
